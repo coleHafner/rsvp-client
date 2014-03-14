@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+		<script type="text/javascript" src="scripts/vendor/angular/angular.min.js" ></script>
+		<script type="text/javascript" src="scripts/vendor/angular-ui/ui-bootstrap-tpls-0.9.0.min.js" ></script>
+		<script type="text/javascript" src="scripts/app.js" ></script>
+
+		<style type="text/css">
+			.content-pad {
+				padding:10px;
+				max-width: 300px;
+				margin:auto;
+				margin-top: 50px;
+			}
+		</style>
+	</head>
+	<body ng-app="rsvp" >
+		<div ng-controller="RsvpCtrl" class="content-pad">
+			<div class="well"></div>
+			<div ng-hide="hideThing">This is a thing</div>
+		</div>
+	</body>
+</html>
