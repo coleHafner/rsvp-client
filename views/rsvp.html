@@ -1,3 +1,35 @@
-<div ng-controller="RsvpCtrl">
-	<div ng-show="showThing"></div>
+<h2>Who's Coming?</h2>
+<div ng-show="!addGuest">
+	<ul class="guest-list">
+		<li ng-repeat="guest in rsvp.group.guests">
+			<label>
+				<input type="checkbox" ng-checked="$index == 0 || guest.is_attending" ng-model="guest.is_attending" />
+				{{ guest.first_name }} {{ guest.last_name }}
+			</label>
+
+			<a ng-if="$index > 0"
+			   href=""
+			   class="glyphicon glyphicon-trash"
+			   ng-click="removeGuest(guest, $index);"></a>
+		</li>
+	</ul>
+
+
+	<button class="btn btn-primary btn-half" ng-click="doRsvp()">
+		RSVP
+	</button>
+
+	<button class="btn btn-link btn-half" ng-click="addGuest = true">
+		Add Guest
+	</button>
+</div>
+
+<div ng-show="addGuest">
+	<p><input type="text" class="form-control" ng-model="newGuest.first_name" placeholder="First Name" /></p>
+	<p><input type="text" class="form-control" ng-model="newGuest.last_name" placeholder="Last Name" /></p>
+
+	<div class="center">
+		<button class="btn btn-primary btn-half" ng-click="saveGuest()">Add Guest</button>
+		<button class="btn btn-default btn-half" ng-click="addGuest = false">Cancel</button>
+	</div>
 </div>

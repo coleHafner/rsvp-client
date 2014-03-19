@@ -1,0 +1,39 @@
+.content-pad {
+	padding:10px;
+	max-width: 300px;
+	margin:auto;
+	margin-top: 50px;
+}
+
+.center {
+	text-align:center;
+}
+
+.pad-top {
+	padding-top:15px;
+}
+
+.btn-half {
+	width:48%;
+}
+
+.btn-container {
+	text-align: center;
+	margin:auto;
+}
+
+.guest-list {
+	margin-left:5px;
+	padding-left:5px;
+}
+
+.guest-list li {
+	list-style: none;
+	padding: 5px auto 5px auto;
+	font-size: 16px;
+}
+
+.well h2 {
+	margin-top:0;
+	padding-top:0;
+}
