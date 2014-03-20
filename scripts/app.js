@@ -16,25 +16,25 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 			.state('activation', {
 				url: '/',
 				controller: 'ActivationCtrl',
-				templateUrl: '/views/activation.html'
+				templateUrl: 'views/activation.html'
 			})
 
 			.state('attendance', {
 				url: '/attending/:activation_code',
 				controller: 'AttendanceCtrl',
-				templateUrl: '/views/attending.html'
+				templateUrl: 'views/attending.html'
 			})
 
 			.state('last-step', {
 				url: '/last-step/:attending',
 				controller: 'LastStepCtrl',
-				templateUrl: '/views/last-step.html'
+				templateUrl: 'views/last-step.html'
 			})
 
 			.state('rsvp', {
 				url: '/rsvp/:activation_code',
 				controller: 'RsvpCtrl',
-				templateUrl: '/views/rsvp.html'
+				templateUrl: 'views/rsvp.html'
 			})
 	}])
 

@@ -13,9 +13,10 @@
 
 	<body ng-app="rsvp">
 		<div class="content-pad">
-			<div class="well">
-				<div ng-show="errorMessage !== null" class="alert alert-danger alert-dismissable center">
-					{{ errorMessage }}
+			<div class="well main-container">
+				<div class="center error-container"
+					ng-class="{'alert' : errorMessage !== null, 'alert-danger' : errorMessage !== null}">
+					<span ng-show="errorMessage !== null">{{ errorMessage }}</span>
 				</div>
 				<div ui-view></div>
 			</div>

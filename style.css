@@ -33,7 +33,15 @@
 	font-size: 16px;
 }
 
-.well h2 {
+.well h2, .well h3 {
 	margin-top:0;
 	padding-top:0;
+}
+
+.error-container {
+	min-height: 50px;
+}
+
+.main-container {
+	padding-bottom:48px;
 }
