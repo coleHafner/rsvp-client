@@ -122,7 +122,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 			parent.rsvp_through_site = true;
 
 			parent.save().then(function(r) {
-				$state.go('goodbye', {activation_code: $scope.rsvp.activation_code});
+				$state.go('last-step', {activation_code: $scope.rsvp.activation_code});
 
 			}, function(r) {
 				$scope.requestFailed(r);
