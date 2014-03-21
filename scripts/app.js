@@ -46,6 +46,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 		};
 
 		$rootScope.errorMessage = null;
+		$rootScope.showReset = true;
 
 		$rootScope.showError = function(error) {
 			$rootScope.errorMessage = error;
@@ -78,17 +79,30 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 				$rootScope.requestFailed(r);
 			});
 		}
+
+		$rootScope.reset = function() {
+			$rootScope.group = null;
+			
+			$rootScope.rsvp = {
+				group: null,
+				activation_code: ''
+			};
+
+			$state.go('activation');
+		}
 	}])
 
 	.controller('ActivationCtrl', ['$scope', '$state', '$rootScope', 'db', function($scope, $state, $rootScope, db) {
 
 		$scope.buttonText = 'RSVP';
+		$rootScope.showReset = false;
 
 		var groupCallback = function(r) {
 			if (r.valid === false) {
 				$scope.showError('The code "' + $scope.rsvp.activation_code + '" is invalid.');
 				return false;
 			}else {
+				$rootScope.showReset = true;
 				$state.go('attendance', {activation_code: $scope.rsvp.activation_code});
 			}
 		}

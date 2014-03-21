@@ -20,10 +20,15 @@
 				<div class="padder" ui-view></div>
 
 				<div class="padder">
-					<div class="center error-container"
-						ng-class="{'alert' : errorMessage !== null, 'alert-danger' : errorMessage !== null}">
-						<span ng-show="errorMessage !== null">{{ errorMessage }}</span>
+					<div class="center alert alert-danger"
+						ng-show="errorMessage !== null"
+						ng-class="{'error-container' : extraPadding}">
+						{{ errorMessage }}
 					</div>
+				</div>
+
+				<div class="start-over" ng-click="reset()" ng-show="showReset">
+					<span class="glyphicon glyphicon-repeat"></span>
 				</div>
 			</div>
 		</div>

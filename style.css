@@ -37,7 +37,7 @@
 	background-color: #dedbdb;
 }
 
-.guest-list li:hover {
+.guest-list li:hover, .start-over:hover {
 	cursor:pointer;
 }
 
@@ -54,6 +54,7 @@
 
 .well {
 	padding:0;
+	position:relative;
 }
 
 .rsvp-check {
@@ -77,4 +78,10 @@
 
 .alert {
 	margin:0;
+}
+
+.start-over {
+	position:absolute;
+	right: 14px;
+	top: 52px;
 }
