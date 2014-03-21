@@ -1,27 +1,34 @@
-<h2>Who's Coming?</h2>
+<h2 class="center">Who's Coming?</h2>
 <div ng-show="!addGuest">
 	<ul class="guest-list">
-		<li ng-repeat="guest in rsvp.group.guests">
-			<label>
-				<input type="checkbox" ng-checked="$index == 0 || guest.is_attending" ng-model="guest.is_attending" />
-				{{ guest.first_name }} {{ guest.last_name }}
-			</label>
+		<li ng-repeat="guest in rsvp.group.guests" class="clearfix" ng-click="guest.is_attending = !guest.is_attending">
 
+				<div class="pull-left rsvp-check">
+					<input type="checkbox" ng-checked="$index == 0 || guest.is_attending" ng-model="guest.is_attending" />
+				</div>
+				<div class="pull-left">
+					{{ guest.first_name }} {{ guest.last_name }}
+				</div>
+
+
+			<!--
 			<a ng-if="$index > 0"
 			   href=""
 			   class="glyphicon glyphicon-trash"
 			   ng-click="removeGuest(guest, $index);"></a>
+			-->
 		</li>
 	</ul>
 
+	<div class="center">
+		<button class="btn btn-primary btn-half" ng-click="doRsvp()">
+			RSVP
+		</button>
 
-	<button class="btn btn-primary btn-half" ng-click="doRsvp()">
-		RSVP
-	</button>
-
-	<button class="btn btn-link btn-half" ng-click="addGuest = true">
-		Add Guest
-	</button>
+		<button class="btn btn-default btn-half" ng-click="addGuest = true">
+			Add Guest
+		</button>
+	</div>
 </div>
 
 <div ng-show="addGuest">

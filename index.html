@@ -8,17 +8,23 @@
 		<script type="text/javascript" src="scripts/vendor/angular/ui-router-0.2.10.min.js" ></script>
 		<script type="text/javascript" src="scripts/vendor/angular/ui-bootstrap-tpls-0.9.0.min.js" ></script>
 		<script type="text/javascript" src="scripts/vendor/dabl.min.js" ></script>
+
+		<script type="text/javascript" src="scripts/config.js" ></script>
 		<script type="text/javascript" src="scripts/app.js" ></script>
 	</head>
 
 	<body ng-app="rsvp">
 		<div class="content-pad">
 			<div class="well main-container">
-				<div class="center error-container"
-					ng-class="{'alert' : errorMessage !== null, 'alert-danger' : errorMessage !== null}">
-					<span ng-show="errorMessage !== null">{{ errorMessage }}</span>
+
+				<div class="padder" ui-view></div>
+
+				<div class="padder">
+					<div class="center error-container"
+						ng-class="{'alert' : errorMessage !== null, 'alert-danger' : errorMessage !== null}">
+						<span ng-show="errorMessage !== null">{{ errorMessage }}</span>
+					</div>
 				</div>
-				<div ui-view></div>
 			</div>
 		</div>
 	</body>

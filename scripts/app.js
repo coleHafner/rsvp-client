@@ -40,10 +40,6 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 
 	.run(['$rootScope', '$state', 'db', function($rootScope, $state, db) {
 
-		var newObj = new db.Guest,
-			notNew = db.Guest,
-			newWithParen = new db.Guest();
-
 		$rootScope.rsvp = {
 			group: null,
 			activation_code: ''
@@ -66,7 +62,13 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 		$rootScope.setGuestGroup = function(activation_code, callback) {
 
 			db.GuestGroup.find(activation_code).then(function(r) {
+
 				$rootScope.rsvp.group = r;
+
+				//hack
+				if (r.parent && r.parent.wedding_id != WEDDING_ID) {
+					r.valid = false;
+				}
 
 				if (typeof callback == 'function') {
 					callback(r);
@@ -208,7 +210,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 			return def;
 		};
 
-		var adapter = new dabl.AngularRESTAdapter('http://rsvp-server/rest/', $http),
+		var adapter = new dabl.AngularRESTAdapter(API_URL, $http),
 			Model = dabl.Model,
 			db = {};
 
@@ -240,6 +242,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 			url: 'guest-groups/:activation_code.json',
 			fields: {
 				activation_code: { type: String, key: true },
+				wedding_id: 'int',
 				guests: {type: Array, elementType: db.Guest},
 				parent: db.Guest,
 				valid: Boolean
