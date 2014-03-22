@@ -209,7 +209,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 
 		if ($state.params.attending) {
 			$scope.header = 'See You There!';
-			$scope.message = 'We\'ll see you at the wedding!';
+			$scope.message = 'Make sure to check back on this site for wedding updates.';
 		}
 	}])
 
