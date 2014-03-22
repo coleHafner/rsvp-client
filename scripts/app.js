@@ -82,7 +82,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 
 		$rootScope.reset = function() {
 			$rootScope.group = null;
-			
+
 			$rootScope.rsvp = {
 				group: null,
 				activation_code: ''
@@ -208,7 +208,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 
 		if ($state.params.attending) {
 			$scope.header = 'See You There!';
-			$scope.message = 'We\'ll see you at the wedding!';
+			$scope.message = 'Make sure to check back on this site for wedding updates.';
 		}
 	}])
 
