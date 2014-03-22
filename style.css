@@ -81,7 +81,7 @@
 }
 
 .start-over {
-	position:absolute;
-	right: 14px;
-	top: 52px;
+	position:relative;
+	text-align: center;
+	padding-bottom: 10px;
 }

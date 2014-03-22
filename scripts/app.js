@@ -46,7 +46,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 		};
 
 		$rootScope.errorMessage = null;
-		$rootScope.showReset = true;
+		$rootScope.showReset = false;
 
 		$rootScope.showError = function(error) {
 			$rootScope.errorMessage = error;
@@ -82,7 +82,8 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 
 		$rootScope.reset = function() {
 			$rootScope.group = null;
-			
+			$rootScope.showReset = false;
+
 			$rootScope.rsvp = {
 				group: null,
 				activation_code: ''
@@ -95,14 +96,12 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 	.controller('ActivationCtrl', ['$scope', '$state', '$rootScope', 'db', function($scope, $state, $rootScope, db) {
 
 		$scope.buttonText = 'RSVP';
-		$rootScope.showReset = false;
 
 		var groupCallback = function(r) {
 			if (r.valid === false) {
 				$scope.showError('The code "' + $scope.rsvp.activation_code + '" is invalid.');
 				return false;
 			}else {
-				$rootScope.showReset = true;
 				$state.go('attendance', {activation_code: $scope.rsvp.activation_code});
 			}
 		}
@@ -201,8 +200,10 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 		};
 	}])
 
-	.controller('LastStepCtrl', ['$scope', '$state', 'db', function($scope, $state, db) {
+	.controller('LastStepCtrl', ['$scope', '$state', '$rootScope', 'db',
+		function($scope, $state, $rootScope, db) {
 
+		$rootScope.showReset = true;
 		$scope.header = 'We\'ll Miss You';
 		$scope.message = 'Feel free to come back and re-RSVP if your plans change.';
 
