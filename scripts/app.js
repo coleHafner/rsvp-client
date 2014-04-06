@@ -155,6 +155,12 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 		var setShuttleOpts = function(numGuests) {
 
 			if (typeof SHUTTLE_CONFIRMATION !== 'undefined') {
+
+
+				if (!numGuests && typeof($scope.rsvp.group.guests.length) !== 'undefined') {
+					numGuests = $scope.rsvp.group.guests.length
+				}
+
 				var opts = [];
 				$scope.showShuttle = true;
 				$scope.shuttleLink = SHUTTLE_LINK;
@@ -167,7 +173,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 			}
 		}
 
-		setShuttleOpts();
+		setShuttleOpts(0);
 
 		if (!$scope.rsvp.group
 			&& typeof $state.params.activation_code !== 'undefined') {
