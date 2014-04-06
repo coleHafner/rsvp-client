@@ -148,10 +148,33 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 	.controller('RsvpCtrl', ['$scope', '$state', '$rootScope', 'db', function($scope, $state, $rootScope, db) {
 
 		$scope.addGuest = false;
+		$scope.showShuttle = false;
 		$scope.newGuest = new db.Guest;
+		$scope.shuttleOpts = [];
 
-		if (!$scope.rsvp.group && typeof $state.params.activation_code !== 'undefined') {
-			$scope.setGuestGroup($state.params.activation_code);
+		var setShuttleOpts = function(numGuests) {
+
+			if (typeof SHUTTLE_CONFIRMATION !== 'undefined') {
+				var opts = [];
+				$scope.showShuttle = true;
+				$scope.shuttleLink = SHUTTLE_LINK;
+
+				for (var i = 1, len = numGuests; i <= len; i++) {
+					opts.push(i);
+				}
+
+				$scope.shuttleOpts = opts;
+			}
+		}
+
+		setShuttleOpts();
+
+		if (!$scope.rsvp.group
+			&& typeof $state.params.activation_code !== 'undefined') {
+
+			$scope.setGuestGroup($state.params.activation_code, function(group) {
+				setShuttleOpts(group.guests.length);
+			});
 
 			$scope.$watch('rsvp.group', function(newVal, oldVal) {
 				if (!newVal) {
@@ -164,6 +187,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 
 		$scope.doRsvp = function() {
 			$scope.rsvp.group.save().then(function(r) {
+				$rootScope.errorMessage = null; //reset error message
 				$state.go('last-step', {attending: true});
 			}, function(r) {
 				$scope.requestFailed(r);
@@ -180,6 +204,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 			$scope.newGuest.save().then(function(r) {
 				r.is_attending = true;
 				$scope.rsvp.group.guests.push(r);
+				setShuttleOpts($scope.rsvp.group.guests.length);
 				$scope.addGuest = false;
 			}, function(r) {
 				$scope.requestFailed(r);
@@ -260,7 +285,8 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 				wedding_id: 'int',
 				guests: {type: Array, elementType: db.Guest},
 				parent: db.Guest,
-				valid: Boolean
+				valid: Boolean,
+				shuttle_count: 'int'
 			},
 			prototype: {
 				validate: function() {

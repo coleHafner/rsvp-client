@@ -2,23 +2,33 @@
 <div ng-show="!addGuest">
 	<ul class="guest-list">
 		<li ng-repeat="guest in rsvp.group.guests" class="clearfix" ng-click="guest.is_attending = !guest.is_attending">
-
-				<div class="pull-left rsvp-check">
-					<input type="checkbox" ng-checked="$index == 0 || guest.is_attending" ng-model="guest.is_attending" />
-				</div>
-				<div class="pull-left">
-					{{ guest.first_name }} {{ guest.last_name }}
-				</div>
-
-
-			<!--
-			<a ng-if="$index > 0"
-			   href=""
-			   class="glyphicon glyphicon-trash"
-			   ng-click="removeGuest(guest, $index);"></a>
-			-->
+			<div class="pull-left rsvp-check">
+				<input type="checkbox" ng-checked="$index == 0 || guest.is_attending" ng-model="guest.is_attending" />
+			</div>
+			<div class="pull-left">
+				{{ guest.first_name }} {{ guest.last_name }}
+			</div>
 		</li>
 	</ul>
+
+	<div ng-show="showShuttle" class="padder guest-item-canvas">
+		<p>
+			Chris and Ava are offering shuttle services to and from the wedding.
+		</p>
+		<p>
+			If you are staying in the downtown seattle area, please indicate
+			how many in your party would be interested in using the shuttle
+			service (<a href="{{ shuttleLink }}">More Details</a>).
+		</p>
+
+		<div class="canvas-divider">
+			<select class="shuttle-select"
+				ng-model="rsvp.group.shuttle_count"
+				ng-options="value as value for value in shuttleOpts">
+				<option value="">Not Interested</option>
+			</select>
+		</div>
+	</div>
 
 	<div class="center">
 		<button class="btn btn-primary btn-half" ng-click="doRsvp()">

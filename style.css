@@ -27,14 +27,24 @@
 	padding-left:0;
 }
 
-.guest-list li {
+.guest-list li, .guest-item-canvas {
 	list-style: none;
 	color:#333;
-	font-size: 16px;
+	font-size: 12px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
-	margin-bottom: 7px;
+	margin-bottom: 3px;
 	background-color: #dedbdb;
+}
+
+.guest-item-canvas {
+	font-size: 12px;
+}
+
+.canvas-divider {
+	margin-top:5px;
+	border-top: 1px solid #ccc;
+	padding-top:5px;
 }
 
 .guest-list li:hover, .start-over:hover {
@@ -42,19 +52,23 @@
 }
 
 .guest-list li div {
-	line-height: 35px;
-	height: 35px;
+	line-height: 21px;
+	height: 21px;
 }
 
 .well h2, .well h3 {
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 	border-bottom: 1px solid #ccc;
-	margin-bottom: 20px;
+	margin-top:0;
 }
 
 .well {
 	padding:0;
 	position:relative;
+}
+
+.shuttle-select {
+	width:100%;
 }
 
 .rsvp-check {
