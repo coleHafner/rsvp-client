@@ -149,40 +149,49 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 
 		$scope.addGuest = false;
 		$scope.showShuttle = false;
+		$scope.showDinner = false;
+		$scope.showExtra = false;
 		$scope.newGuest = new db.Guest;
 		$scope.shuttleOpts = [];
 
-		var setShuttleOpts = function(numGuests) {
+		$scope.$watch('rsvp.group', function(newVal, oldVal) {
+			if (!newVal) {
+				return;
+			}
+
+			$scope.rsvp.group.parent.is_attending = true;
+			setExtraOpts(newVal.guests.length, newVal.parent);
+		});
+
+		var setExtraOpts = function(numGuests, parentGuest) {
+
+			var opts = [];
 
 			if (typeof SHUTTLE_CONFIRMATION !== 'undefined') {
-				var opts = [];
 				$scope.showShuttle = true;
 				$scope.shuttleLink = SHUTTLE_LINK;
-
-				for (var i = 1, len = numGuests; i <= len; i++) {
-					opts.push(i);
-				}
-
-				$scope.shuttleOpts = opts;
+				$scope.showExtra = true;
 			}
-		}
 
-		setShuttleOpts();
+			if (parentGuest
+				&& parentGuest.rsvp_dinner_enabled) {
+				$scope.showDinner = true;
+				$scope.showExtra = true;
+			}
+
+			for (var i = 1, len = numGuests; i <= len; i++) {
+				opts.push(i);
+			}
+
+			$scope.extraOpts = opts;
+		}
 
 		if (!$scope.rsvp.group
 			&& typeof $state.params.activation_code !== 'undefined') {
 
-			$scope.setGuestGroup($state.params.activation_code, function(group) {
-				setShuttleOpts(group.guests.length);
-			});
+			$scope.setGuestGroup($state.params.activation_code);
 
-			$scope.$watch('rsvp.group', function(newVal, oldVal) {
-				if (!newVal) {
-					return;
-				}
 
-				$scope.rsvp.group.guests[0].is_attending = true;
-			});
 		}
 
 		$scope.doRsvp = function() {
@@ -204,7 +213,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 			$scope.newGuest.save().then(function(r) {
 				r.is_attending = true;
 				$scope.rsvp.group.guests.push(r);
-				setShuttleOpts($scope.rsvp.group.guests.length);
+				setExtraOpts($scope.rsvp.group.guests.length, $scope.rsvp.group.parent);
 				$scope.addGuest = false;
 			}, function(r) {
 				$scope.requestFailed(r);
@@ -269,6 +278,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 				is_attending: Boolean,
 				actual_count: 'int',
 				rsvp_through_site: Boolean,
+				rsvp_dinner_enabled: Boolean,
 				is_new: Boolean,
 				active: Boolean,
 				created: 'int',
@@ -286,13 +296,14 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 				guests: {type: Array, elementType: db.Guest},
 				parent: db.Guest,
 				valid: Boolean,
-				shuttle_count: 'int'
+				shuttle_count: 'int',
+				dinner_count: 'int'
 			},
 			prototype: {
 				validate: function() {
 					if (this.activation_code && this.activation_code.length < 4
 						|| !this.activation_code) {
-						this._validationErrors.push('The activattion code must be 4 characters.');
+						this._validationErrors.push('The activation code must be 4 characters.');
 					}
 
 					return this._validationErrors.length == 0;

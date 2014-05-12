@@ -11,20 +11,32 @@
 		</li>
 	</ul>
 
-	<div ng-show="showShuttle" class="padder guest-item-canvas">
-		<p>
-			Chris and Ava are offering shuttle services to and from the wedding.
-		</p>
-		<p>
-			If you are staying in the downtown seattle area, please indicate
-			how many in your party would be interested in using the shuttle
-			service (<a href="{{ shuttleLink }}">More Details</a>).
-		</p>
+	<div ng-show="showExtra" class="padder guest-item-canvas blue-bg">
 
-		<div class="canvas-divider">
+		<div ng-show="showShuttle" class="extra-selector">
+			<span>Shuttle Service</span>
+			<p>
+				Chris and Ava are offering shuttle services to and from the wedding.
+				If you are staying in the downtown Seattle area, please indicate
+				how many in your party would be interested.
+				(<a href="{{ shuttleLink }}">More Details</a>).
+			</p>
 			<select class="shuttle-select"
 				ng-model="rsvp.group.shuttle_count"
-				ng-options="value as value for value in shuttleOpts">
+				ng-options="value as value for value in extraOpts">
+				<option value="">Not Interested</option>
+			</select>
+		</div>
+
+		<div ng-show="showDinner" class="extra-selector canvas-divider">
+			<span>Friday Reception</span>
+			<p>
+				There will be a reception on Friday night and you're invited!
+				Please indicate how many in your party will be attending.
+			</p>
+			<select class="shuttle-select"
+				ng-model="rsvp.group.dinner_count"
+				ng-options="value as value for value in extraOpts">
 				<option value="">Not Interested</option>
 			</select>
 		</div>

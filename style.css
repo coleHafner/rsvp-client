@@ -99,3 +99,15 @@
 	text-align: center;
 	padding-bottom: 10px;
 }
+
+.extra-selector {
+	margin-bottom: 10px;
+}
+
+.extra-selector span {
+	font-weight:bold;
+}
+
+.blue-bg {
+	background-color: #F0F8FF;
+}
