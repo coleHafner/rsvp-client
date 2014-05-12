@@ -168,6 +168,12 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 			var opts = [];
 
 			if (typeof SHUTTLE_CONFIRMATION !== 'undefined') {
+
+				if (!numGuests && typeof($scope.rsvp.group.guests.length) !== 'undefined') {
+					numGuests = $scope.rsvp.group.guests.length
+				}
+
+				var opts = [];
 				$scope.showShuttle = true;
 				$scope.shuttleLink = SHUTTLE_LINK;
 				$scope.showExtra = true;
@@ -185,6 +191,8 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 
 			$scope.extraOpts = opts;
 		}
+
+		setExtraOpts();
 
 		if (!$scope.rsvp.group
 			&& typeof $state.params.activation_code !== 'undefined') {
@@ -215,6 +223,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 				$scope.rsvp.group.guests.push(r);
 				setExtraOpts($scope.rsvp.group.guests.length, $scope.rsvp.group.parent);
 				$scope.addGuest = false;
+				$scope.newGuest = new db.Guest;
 			}, function(r) {
 				$scope.requestFailed(r);
 			})
