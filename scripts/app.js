@@ -212,6 +212,7 @@ angular.module('rsvp', ['ui.bootstrap', 'ui.router'])
 				$scope.rsvp.group.guests.push(r);
 				setShuttleOpts($scope.rsvp.group.guests.length);
 				$scope.addGuest = false;
+				$scope.newGuest = new db.Guest;
 			}, function(r) {
 				$scope.requestFailed(r);
 			})
