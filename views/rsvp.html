@@ -2,7 +2,7 @@
 <div ng-show="!addGuest">
 	<ul class="guest-list">
 		<li ng-repeat="guest in rsvp.group.guests" class="clearfix" ng-click="guest.is_attending = !guest.is_attending">
-			<div class="pull-left rsvp-check">
+			<div class="pull-left rsvp-check" ng-click="guest.is_attending = !guest.is_attending">
 				<input type="checkbox" ng-checked="$index == 0 || guest.is_attending" ng-model="guest.is_attending" />
 			</div>
 			<div class="pull-left">
